@@ -33,6 +33,7 @@ warning('off','all');
 % d  = daq.getDevices;
 % This is the other suggestion 
 % out = instrhwinfo;
+% instrhwinfo visa
 
 % Find a VISA-USB object.
 instr_obj = instrfind('Type', 'visa-usb');
