@@ -30,8 +30,9 @@ warning('off','all');
 
 % Scan for devices 
 % (This should make automatically discovering the oscilloscope possible)
-% d  = daq.getDevices
-% This is the other suggestions
+% d  = daq.getDevices;
+% This is the other suggestion 
+% out = instrhwinfo;
 
 % Find a VISA-USB object.
 instr_obj = instrfind('Type', 'visa-usb');
