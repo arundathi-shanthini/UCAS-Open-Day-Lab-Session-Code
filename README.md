@@ -1,6 +1,6 @@
 # UCAS-Open-Day-Lab-Session-Code
 
-The file __`load_from_RS_scope.m`__ contains the MATLAB code that allows acquisiton of data points as displayed on the screen from Rhode & Schwarz RTB-2004 Oscilloscope using SCPI commands.
+The file __`load_from_scope.m`__ contains the MATLAB code that allows acquisiton of data points as displayed on the screen from Rhode & Schwarz RTB-2004 Oscilloscope using SCPI commands.
 
 The following [documentation](https://www.rohde-schwarz.com/webhelp/RTB_HTML_UserManual_en/Content/f04d8c7e15c9475d.htm) of remote control commands for R&S RTB Oscilloscopes was heavily used as reference to develop this file.
 
