@@ -123,10 +123,7 @@ end
 % Close the instrument object, obj1
 fclose(instr_obj);
 
-%% Calculating some values for frequency domain
-
-% Define Sampling frequency 
-Fs= 1/dt; 
+%% Defining the time scale values
 
 % Define the time axis values
 time=([0:data_len-1].*dt)'; 
@@ -134,6 +131,11 @@ time=([0:data_len-1].*dt)';
 % Define the oscilloscope signal as a matrix
 % This is the value that Simulink uses
 data_matrix=[time(:),data(:)];
+
+%% Calculating values for generating frequency domain
+
+% Define Sampling frequency 
+Fs= 1/dt; 
 
 % The tones of interest lie between 697Hz and 1477Hz so the frequency range 
 % of interest is to be defined as 0-2kHz
