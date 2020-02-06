@@ -28,6 +28,11 @@ warning('off','all');
 
 %% Connect to the instrument
 
+% Scan for devices 
+% (This should make automatically discovering the oscilloscope possible)
+% d  = daq.getDevices
+% This is the other suggestions
+
 % Find a VISA-USB object.
 instr_obj = instrfind('Type', 'visa-usb');
 
@@ -69,6 +74,7 @@ fprintf(instr_obj,'*OPC?');
 OP_status=fscanf(instr_obj,'%c\n',1);
 if OP_status == 0
     error('Setup operation did not complete successfully!')
+    return
 end
 
 % Clear the buffer
@@ -110,7 +116,8 @@ dt=double(convertCharsToStrings(char(dt(1:end-1))));
 fprintf(instr_obj,'*OPC?');
 OP_status=fscanf(instr_obj,'%c\n',1);
 if OP_status == 0
-    error('Setup operation did not complete successfully!')
+    disp('Setup operation did not complete successfully!')
+    return
 end
 
 % Close the instrument object, obj1
