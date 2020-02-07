@@ -28,20 +28,14 @@ warning('off','all');
 
 %% Connect to the instrument
 
-% Scan for devices 
-% (This should make automatically discovering the oscilloscope possible)
-% d  = daq.getDevices;
-% This is the other suggestion 
-% out = instrhwinfo;
-% instrhwinfo visa
-
 % Find a VISA-USB object.
 instr_obj = instrfind('Type', 'visa-usb');
 
 % Create the VISA-USB object if it does not exist
 % otherwise use the object that was found.
 if isempty(instr_obj)
-    instr_obj = visa('NI',instr_obj.Rsrcname{1});
+    disp('Error: Rescan for devices using command tmtool!')
+    return
 else
     fclose(instr_obj);
     instr_obj = instr_obj(1);
@@ -75,7 +69,7 @@ fprintf(instr_obj, 'SIGN');
 fprintf(instr_obj,'*OPC?');
 OP_status=fscanf(instr_obj,'%c\n',1);
 if OP_status == 0
-    error('Setup operation did not complete successfully!')
+    disp('Error: Setup operation did not complete successfully!')
     return
 end
 
@@ -94,7 +88,7 @@ hash=char(fread(instr_obj, 1, 'char'));
 % This reads the number of digits of the following output parameter
 N=str2num(char((fread(instr_obj, 1, 'char'))));     
 % This reads the number of data points
-num_data_points=str2num(char(fread(instr_obj, N, 'char'))'); 
+num_data_points=str2double(char(fread(instr_obj, N, 'char'))'); 
             
 % Note that in the above lines the values were returned as ASCII code
 % numbers. Therefore char() was used to get corresponding character before
@@ -108,9 +102,8 @@ data_len=length(data);
 flushinput(instr_obj);
 
 % Query the horizontal scale
-fprintf(instr_obj,'CHAN:DATA:XINC?'); 
-dt=fread(instr_obj);
-dt=double(convertCharsToStrings(char(dt(1:end-1))));
+fprintf(instr_obj,'CHAN:DATA:XINC?');
+dt=str2double((char(fread(instr_obj))'));
 
 %% Disconnect from the instrument
 
@@ -118,7 +111,7 @@ dt=double(convertCharsToStrings(char(dt(1:end-1))));
 fprintf(instr_obj,'*OPC?');
 OP_status=fscanf(instr_obj,'%c\n',1);
 if OP_status == 0
-    disp('Setup operation did not complete successfully!')
+    disp('Error: Setup operation did not complete successfully!')
     return
 end
 
@@ -150,12 +143,14 @@ figure;
 % Plot the spectrogram (Frequency domain)
 subplot(2,1,1);
 spectrogram(data,10000,0,F_range,Fs,'yaxis','power')
-% Rescaling the colormap so that colours highlight the 
-% peaks better.
-colormap([zeros(256, 3); parula(256)]);
+title('Spectrogram');
+% Rescaling the colormap to be between only 0dB to 80dB so that colours 
+% highlight the peaks better.
+caxis([-80 0])
 
 % Plot the signal (Time domain)
 subplot(2,1,2);
 plot(time,data)
+title('Signal');
 xlabel('Time (s)')
 ylabel('Amplitude (V)')
