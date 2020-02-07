@@ -139,14 +139,16 @@ F_range = linspace(0,2000,500);
 %% Plotting the signal and spectrogram
 
 figure;
-
+hold on;
 % Plot the spectrogram (Frequency domain)
 subplot(2,1,1);
 spectrogram(data,10000,0,F_range,Fs,'yaxis','power')
 title('Spectrogram');
 % Rescaling the colormap to be between only 0dB to 80dB so that colours 
 % highlight the peaks better.
-caxis([-80 0])
+% The left hand side limit was reduced by 40% to make the peaks more clear.
+lim=caxis;
+caxis([lim(1)*0.6 lim(2)])
 
 % Plot the signal (Time domain)
 subplot(2,1,2);
@@ -154,3 +156,5 @@ plot(time,data)
 title('Signal');
 xlabel('Time (s)')
 ylabel('Amplitude (V)')
+
+hold off;
