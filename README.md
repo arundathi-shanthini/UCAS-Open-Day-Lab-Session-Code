@@ -12,7 +12,7 @@ This script connects to the oscilloscope (R&S - RTB2004) fetches the signal. It 
     - Spectrogram showing the tones in the signal  
     #### Screenshot showing signal as can be seen on the oscilloscope screen:
     ![alt text](https://github.com/Aru2612/UCAS-Open-Day-Lab-Session-Code/blob/master/old_devel_scripts/images/oscilloscope_screen.PNG "Screenshot showing signal as can be seen on the oscilloscope screen")
-    #### The ouput obtained:
+    #### The output obtained:
     ![alt text](https://github.com/Aru2612/UCAS-Open-Day-Lab-Session-Code/blob/master/old_devel_scripts/images/script_output.png "The ouput obtained")
     
 - __`data_matrix`__: The signal captured is stored as a matrix the Get Signal
